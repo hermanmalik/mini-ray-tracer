@@ -2,8 +2,8 @@ public class ThreeVector {
     private final double x;
     private final double y;
     private final double z;
-    final double eta_i = 1.f; // for snell
-    final double eta_t = 1.0;
+    static final double eta_i = 1.f; // for snell
+    static final double eta_t = 1.0;
 
     public ThreeVector(double x, double y, double z) {
         this.x = x;
@@ -49,11 +49,11 @@ public class ThreeVector {
         return this.times(1 / this.norm());
     }
 
-    ThreeVector reflect(ThreeVector I, ThreeVector N) {
+    public static ThreeVector reflect(ThreeVector I, ThreeVector N) {
         return I.minus(N.times(2.f).times(I.dot(N))); //I - N*2.f*(I*N)
     }
 
-    ThreeVector refract(ThreeVector I, ThreeVector N) { // Snell's law
+    public static ThreeVector refract(ThreeVector I, ThreeVector N) { // Snell's law
         double cosi = - Math.max(-1.f, Math.min(1.f, I.dot(N)));
         if (cosi < 0) {
             return refract(I, N.times(-1)); // if the ray comes from the inside the object, swap the air and the media
